@@ -1,6 +1,7 @@
 package com.example.Librarymanagementsystem.Entities;
 
 import com.example.Librarymanagementsystem.Enums.CardStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class LibraryCard {
 
     @OneToOne
     @JoinColumn
+    @JsonIgnore
     private Student student;
 
     @OneToMany(mappedBy = "libraryCard",cascade = CascadeType.ALL)

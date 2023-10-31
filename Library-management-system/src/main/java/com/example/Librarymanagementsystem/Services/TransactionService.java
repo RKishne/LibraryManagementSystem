@@ -10,6 +10,8 @@ import com.example.Librarymanagementsystem.Repositories.BookRepository;
 import com.example.Librarymanagementsystem.Repositories.CardRepository;
 import com.example.Librarymanagementsystem.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import java.lang.*;
 
@@ -27,6 +29,9 @@ public class TransactionService {
 
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     private static final Integer MAX_LIMIT_OF_BOOKS = 3;
 
@@ -86,6 +91,17 @@ public class TransactionService {
         //if the parent is more than two for chlid class then insted of saving the parent just save the child entity
         transactionRepository.save(newTransaction);
 
+        SimpleMailMessage mailMessage=new SimpleMailMessage();
+
+        String body="Hi "+libraryCard.getStudentName()+" ! "+"You have successfully issued book whose book id is  "+book.getBookId()+" and book name is "+book.getBookName()+" with your card whose Id is "+libraryCard.getCardNo()+" has issued at "+newTransaction.getCreatedOn();
+
+        mailMessage.setFrom("hr5235577@gmail.com");
+        mailMessage.setTo(libraryCard.getStudent().getEmailId());
+        mailMessage.setSubject("ThankYou for issuing book with Rahul's library!!!");
+        mailMessage.setText(body);
+
+        mailSender.send(mailMessage);
+
         return "The book with book Id "+bookId+"has been issued to card with "+cardId;
     }
 
@@ -140,6 +156,17 @@ public class TransactionService {
         libraryCard.getTransactionList().add(newTransaction);
 
         transactionRepository.save(newTransaction);
+
+        SimpleMailMessage mailMessage=new SimpleMailMessage();
+
+        String body="Hi "+libraryCard.getStudentName()+" ! "+"You have successfully returned book whose book id  "+book.getBookId()+" and book name is "+book.getBookName()+"with your card whose Id is "+libraryCard.getCardNo()+" and has return at "+newTransaction.getReturnDate()+" with fine "+transaction.getFine();
+
+        mailMessage.setFrom("hr5235577@gmail.com");
+        mailMessage.setTo(libraryCard.getStudent().getEmailId());
+        mailMessage.setSubject("ThankYou for issuing book with Rahul's library!!!");
+        mailMessage.setText(body);
+
+        mailSender.send(mailMessage);
 
         return "Book Has been Returned";
     }

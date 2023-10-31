@@ -1,5 +1,6 @@
 package com.example.Librarymanagementsystem.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Student {
 
     private String BloodGroup;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "student",cascade = CascadeType.ALL)
     private LibraryCard libraryCard;
 
