@@ -1,6 +1,7 @@
 # LibraryManagementSystem
 
 This is Spring Boot Backend Application ,this shows how library System works where Student can issue book,return book and lot more API's .Stores the information about Student and books.
+Dependencies used:- Spring Web , Lombok , Mysql , JDBC , Swagger , Email Integration.
 
 #ER Diagram of DB
 ![Screenshot 2023-11-01 125157](https://github.com/RKishne/LibraryManagementSystem/assets/99482503/7addb09e-8d9d-4f93-9ccf-555dbab9e7fa)
